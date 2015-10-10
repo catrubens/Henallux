@@ -1,6 +1,7 @@
 ﻿using Labo1;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,12 +27,13 @@ namespace Labo1
             Activity activity10 = new Activity("musique", true);
             Activity activity11 = new Activity("basket", true);
 
-            /* eleve1.addActivity(activity1);
-             eleve1.addActivity(activity2);
+          
+             eleve1.AddActivity(activity1.Title);
+             eleve1.AddActivity(activity2.Title);
              eleve1.AddEvaluation(evaluation: 'T', titre: "vélo");
 
-             eleve2.addActivity(activity3);
-             eleve2.addActivity(activity2);
+             eleve2.AddActivity(activity3.Title);
+             eleve2.AddActivity(activity2.Title);
 
              eleve2.AddEvaluation("piscine", 'R');
              eleve2.AddEvaluation("marche", 'T');
@@ -45,7 +47,7 @@ namespace Labo1
              System.Console.Write(eleve2.GetEvatuation("vélo"));
              System.Console.ReadKey();
              System.Console.Write("\n\n");
-             * 
+             /* 
  //Variable anonyme
              System.Console.Write("Variable anonyme \n");
              List<Pupil> listePupil = new List<Pupil>()
@@ -89,8 +91,8 @@ namespace Labo1
              System.Console.Write(eleve3);
              System.Console.ReadKey();
 
-//Lambda
-            System.Console.Write("Lambda \n");
+//Lambda*/
+            /*System.Console.Write("Lambda \n");
             List<Pupil> listePupil = new List<Pupil>()
             {
                 new Pupil("Laura",13,3),
@@ -110,7 +112,9 @@ namespace Labo1
                     System.Console.Write(eleves.ToString() + "\n");
                 }
             */
+
 //Cavariance
+            /*
             System.Console.Write("Cavariance \n");
             List<Pupil> listPupils = new List<Pupil>() { 
                 new Pupil("Léo",18,4),
@@ -146,8 +150,10 @@ namespace Labo1
             {
                 System.Console.Write(pers.ToString() + "\n");
             }
-
+            */
             System.Console.ReadKey();
+
+
            
         }
     }
