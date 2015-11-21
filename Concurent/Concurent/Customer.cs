@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Concurent
 {
-    class Customer
+    public class Customer
     {
         public double AccountBalance { get; set; }
         public String AddressLine1 { get; set; }
@@ -19,7 +19,7 @@ namespace Concurent
         public String PostCode { get; set; }
         public String Remark { get; set; }
 
-       
-
+        
+        
     }
 }
