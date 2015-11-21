@@ -19,7 +19,7 @@ namespace Concurent
        // public CompanyContext(string ConnectionString)
         //    : base()
         public CompanyContext()
-            : base(@"Data Source=vm-sql.iesn.be\Stu3IG;Initial Catalog=DBIG3A2;User ID=IG3A2;Password=***********")
+            : base(@"Data Source=vm-sql.iesn.be\Stu3IG;Initial Catalog=DBIG3A2;User ID=IG3A2;Password=pwUserdb15")
         {
 
         }
