@@ -1,0 +1,29 @@
+﻿@model MeditGestionRisqueLesire.Models.TypeRisque
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Détail pour le risque : @Html.DisplayFor(modelItem => Model.TraductionRisques.First(f => f.IdLangue == (Decimal)Session["selectionLangue"]).Denomination)</h2>
+
+<div>    
+    <table class="table">
+        <tr>
+            <th>
+                Nom de l'examen lié
+            </th>
+        </tr>
+
+        @foreach (var itemExamen in Model.TypeExamen_TypeRisque.Where(e => e.IdRisque == Model.IdRisque))
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => itemExamen.TypeExaman.TraductionExamen.First(f => f.IdLangue == (Decimal)Session["selectionLangue"]).Denomination)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Retourner à la liste", "Index")
+</p>

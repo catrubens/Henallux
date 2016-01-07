@@ -1,0 +1,119 @@
+﻿@model MeditGestionRisqueLesire.Models.Travailleur
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Détail sur le travailleur</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt>
+            Prénom
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+
+        <dt>
+            Numéro dossier
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroDossier)
+        </dd>
+
+        <dt>
+            Adresse
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresse.Rue),
+            @Html.DisplayFor(model => model.Adresse.Numero)
+        </dd>
+        <dt>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Adresse.CP)
+            @Html.DisplayFor(model => model.Adresse.Localite)
+        </dd>
+    </dl>
+
+    <h2>Emploi(s)</h2>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Profession
+                </th>
+                <th>
+                    Type de travail
+                </th>
+                <th>
+                    Entreprise
+                </th>
+                <th>
+                    Date d'entrée
+                </th>
+                <th>
+                    Date de sortie
+                </th>
+                <th>
+                    Examen lié
+                </th>
+                <th>
+                    Risque lié
+                </th>
+                
+            </tr>
+           
+            @foreach (var itemEmplois in Model.Emplois.Where(e => e.IdTravailleur == Model.IdTravailleur))
+            {
+                <tr class="subInfos">
+                    <td>
+                        @Html.DisplayFor(modelItem => itemEmplois.Profession.TraductionProfessions.First(f => f.IdLangue == (Decimal)Session["selectionLangue"]).LibelleProfession)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => itemEmplois.TypeTravail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => itemEmplois.Entreprise.Denomination)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => itemEmplois.DateEntree)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => itemEmplois.DateSortie)
+                    </td> 
+                    <td>
+                        @foreach (var itemExamen in itemEmplois.examen_particulier)
+                        { 
+                            @Html.DisplayFor(modelItem => itemExamen.TypeExaman.TraductionExamen.First(f => f.IdLangue == (Decimal)Session["selectionLangue"]).Denomination)  
+                             <br />
+                        }
+                    </td>
+
+                    <td>
+                        @foreach (var itemExamen in itemEmplois.examen_en_fonction_du_risque)
+                        {
+                            @Html.DisplayFor(modelItem => itemExamen.TypeRisque.TraductionRisques.First(f => f.IdLangue == (Decimal)Session["selectionLangue"]).Denomination)
+                            <br />
+                        }
+                    </td>
+                 </tr>
+            }
+        </table>
+</div>
+<p>
+    @Html.ActionLink("Retourner à la liste", "Index")
+</p>
