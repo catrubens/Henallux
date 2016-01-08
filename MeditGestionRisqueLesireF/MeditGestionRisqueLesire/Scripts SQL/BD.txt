@@ -1,0 +1,607 @@
+﻿
+
+
+alter table MediT drop constraint FKMed_Adr_FK;
+alter table Assistante_Equipe drop constraint FKcom_Equ;
+alter table Assistante_Equipe drop constraint FKcom_Ass_FK;
+alter table Emploi drop constraint FKtypeTravail_FK;
+alter table Emploi drop constraint FKoffre_FK;
+alter table Emploi drop constraint FKexerce_FK;
+alter table Entreprise drop constraint FKEnt_Adr_FK;
+alter table EquipeMedicale drop constraint FKresponsable_FK;
+alter table ExamenRealise drop constraint FKse_base_FK;
+alter table ExamenRealise drop constraint FKprestataire_FK;
+alter table ExamenRealise drop constraint FKpour_FK;
+alter table Interllocuteur drop constraint FKEnt_Int;
+alter table Lieu_Equipe drop constraint FKger_Lie;
+alter table Lieu_Equipe drop constraint FKger_Equ_FK;
+alter table Secteur drop constraint FKoccupe_FK;
+alter table TraductionExamen drop constraint FKtra_TypEx;
+alter table TraductionExamen drop constraint FKtra_LanEx_FK;
+alter table TraductionProfession drop constraint FKtra_Pro_FK;
+alter table TraductionProfession drop constraint FKtra_Lan;
+alter table TraductionRisque drop constraint FKtra_TypRi;
+alter table TraductionRisque drop constraint FKtra_LanRi_FK;
+alter table Travailleur drop constraint FKTra_Adr_FK;
+alter table TypeExamen drop constraint FKgeneralite_FK;
+alter table TypeExamen_TypeRisque drop constraint FKlie_Typ_1;
+alter table TypeExamen_TypeRisque drop constraint FKlie_Typ_FK;
+alter table VisiteMedicale drop constraint FKse_deroule_FK;
+alter table VisiteMedicale drop constraint FKdevoir_FK;
+alter table examen_en_fonction_du_risque drop constraint FKexa_Typ;
+alter table examen_en_fonction_du_risque drop constraint FKexa_Emp_FK;
+alter table examen_particulier drop constraint FKexa_Typ_1_FK;
+alter table examen_particulier drop constraint FKexa_Emp_1;
+
+drop table Adresse;
+drop table Assistante;
+drop table Assistante_Equipe;
+drop table Compte;
+drop table Emploi;
+drop table Entreprise;
+drop table EquipeMedicale;
+drop table ExamenRealise;
+drop table Interllocuteur;
+drop table Langue;
+drop table Lieu;
+drop table Lieu_Equipe;
+drop table Medecin;
+drop table MediT;
+drop table Profession;
+drop table Secteur;
+drop table TraductionExamen;
+drop table TraductionProfession;
+drop table TraductionRisque;
+drop table Travailleur;
+drop table TypeExamen;
+drop table TypeExamen_TypeRisque;
+drop table TypeRisque;
+drop table VisiteMedicale;
+drop table examen_particulier;
+drop table examen_en_fonction_du_risque;
+-- Tables Section
+-- _____________ 
+
+create table Adresse 
+(
+     IdAdresse numeric(10) not null,
+     Numero varchar(5) not null,
+     Rue varchar(50) not null,
+     CP numeric(5) not null,
+     Localite varchar(50) not null,
+     constraint ID_Adresse_ID primary key (IdAdresse)
+	 );
+
+create table Assistante 
+(
+     Nom varchar(60) not null,
+     Prenom varchar(60) not null,
+     constraint ID_Assistante_ID primary key (Nom)
+	 );
+
+create table Assistante_Equipe 
+(
+     IdAssistanteEquipe numeric(10) not null,
+     IdEquipe numeric(10) not null,
+     Nom varchar(60) not null,
+     constraint SID_Assistante_Equipe_ID unique (IdEquipe, Nom),
+     constraint ID_Assistante_Equipe_ID primary key (IdAssistanteEquipe)
+	 );
+
+create table Compte
+ (
+     IdCompte numeric(10) not null,
+     NumerrCompte numeric(15) not null,
+     constraint ID_Compte_ID primary key (IdCompte)
+	 );
+
+create table Emploi 
+(
+     IdEmploi numeric(10) not null,
+     TypeTravail varchar(12) not null,
+     DateEntree date not null,
+     Numero numeric(10) not null,
+     IdTravailleur numeric(10) not null,
+     DateSortie date,
+     CodeAlpha varchar(25) not null,
+     constraint ID_Emploi_ID primary key (IdEmploi),
+     constraint SID_Emploi_ID unique (DateEntree, IdTravailleur, Numero),
+	 check(TypeTravail in('non-soumis','soumis'))
+	 );
+
+create table Entreprise 
+(
+     Numero numeric(10) not null,
+     Denomination varchar(60) not null,
+     Telephone numeric(9) not null,
+     IdAdresse numeric(10) not null,
+     constraint ID_Entreprise_ID primary key (Numero)
+	 );
+
+create table EquipeMedicale 
+(
+     IdEquipe numeric(10) not null,
+     NomMedecin varchar(60) not null,
+     constraint ID_EquipeMedicale_ID primary key (IdEquipe)
+	 );
+
+create table examen_en_fonction_du_risque 
+(
+     IdExamenFonctionRisque numeric(10) not null IDENTITY(1,1),
+     IdRisque numeric(10) not null,
+     IdEmploi numeric(10) not null,
+     constraint ID_examen_en_fonction_du_risque_ID primary key (IdExamenFonctionRisque),
+     constraint SID_examen_en_fonction_du_risque_ID unique (IdRisque, IdEmploi)
+	 );
+
+create table examen_particulier 
+(
+     IdExamenParticulier numeric(10) not null IDENTITY(1,1),
+     IdExamen numeric(10) not null,
+     IdEmploi numeric(10) not null,
+     constraint ID_examen_particulier_ID primary key (IdExamenParticulier),
+     constraint SID_examen_particulier_ID unique (IdEmploi, IdExamen)
+	 );
+
+create table ExamenRealise 
+(
+     IdExamenRealiser numeric(10) not null,
+     NumeroVisite numeric(10) not null,
+     IdExamen numeric(10) not null,
+     Duree numeric(5) not null,
+     Resultat varchar(200) not null,
+     PrixTotal numeric(10,2) not null,
+     NomMedecin varchar(60) not null,
+     Pou_NumeroVisite numeric(10) not null,
+     constraint ID_ExamenRealise_ID primary key (IdExamenRealiser),
+     constraint SID_ExamenRealise_ID unique (NumeroVisite, IdExamen)
+	 );
+
+create table Interllocuteur
+ (
+     Numero numeric(10) not null,
+     Interllocuteur varchar(50) not null,
+     constraint ID_Interllocuteur_ID primary key (Numero, Interllocuteur)
+	 );
+
+create table Langue 
+(
+     IdLangue numeric(10) not null,
+     Nom varchar(60) not null,
+     constraint ID_Langue_ID primary key (IdLangue)
+	 );
+
+create table Lieu 
+(
+     IdLieu numeric(10) not null,
+     PrixLieu numeric(10,2) not null,
+     typeLieu varchar(50) not null,
+     constraint ID_Lieu_ID primary key (IdLieu)
+	 );
+
+create table Lieu_Equipe 
+(
+     IdGere numeric(10) not null,
+     IdLieu numeric(10) not null,
+     IdEquipe numeric(10) not null,
+     constraint SID_Lieu_Equipe_ID unique (IdLieu, IdEquipe),
+     constraint ID_Lieu_Equipe_ID primary key (IdGere)
+	 );
+
+create table Medecin 
+(
+     NomMedecin varchar(60) not null,
+     constraint ID_Medecin_ID primary key (NomMedecin)
+	 );
+
+create table MediT 
+(
+     Nom varchar(50) not null,
+     Telephone numeric(9) not null,
+     Fax numeric(9) not null,
+     SiteWeb varchar(50) not null,
+     NumeroCompte numeric(15) not null,
+     PrixRedevanceTravailleurSoumis numeric(10,2) not null,
+     PrixRedevanceTravailleurNonSoumis numeric(10,2) not null,
+     IdAdresse numeric(10),
+     constraint ID_MediT_ID primary key (Nom)
+	 );
+
+create table Profession 
+(
+     CodeAlpha varchar(25) not null,
+     constraint ID_Profession_ID primary key (CodeAlpha)
+	 );
+
+create table Secteur 
+(
+     CodeSecteur numeric(10) not null,
+     Denomination varchar(60) not null,
+     IdEquipe numeric(10) not null,
+     constraint ID_Secteur_ID primary key (CodeSecteur)
+	 );
+
+create table TraductionExamen 
+(
+     IdTraductionExemen numeric(10) not null,
+     IdExamen numeric(10) not null,
+     IdLangue numeric(10) not null,
+     Denomination varchar(60) not null,
+     constraint ID_TraductionExamen_ID primary key (IdTraductionExemen),
+     constraint SID_TraductionExamen_ID unique (IdExamen, IdLangue)
+	 );
+
+create table TraductionProfession 
+(
+     IdTraductionProfession numeric(10) not null,
+     CodeAlpha varchar(25) not null,
+     IdLangue numeric(10) not null,
+     LibelleProfession varchar(60) not null,
+     constraint ID_TraductionProfession_ID primary key (IdTraductionProfession),
+     constraint SID_TraductionProfession_ID unique (IdLangue, CodeAlpha)
+	 );
+
+create table TraductionRisque 
+(
+     IdTraductionRisque numeric(10) not null,
+     IdRisque numeric(10) not null,
+     IdLangue numeric(10) not null,
+     Denomination varchar(60) not null,
+     constraint ID_TraductionRisque_ID primary key (IdTraductionRisque),
+     constraint SID_TraductionRisque_ID unique (IdRisque, IdLangue)
+	 );
+
+create table Travailleur 
+(
+     IdTravailleur numeric(10) not null,
+     Nom varchar(50) not null,
+     Prenom varchar(50) not null,
+     NumeroDossier numeric(12),
+     IdAdresse numeric(10) not null,
+     constraint ID_Travailleur_ID primary key (IdTravailleur)
+	 );
+
+create table TypeExamen 
+(
+     IdExamen numeric(10) not null,
+     PrixTravailleurSoumis numeric(10,2) not null,
+     PrixTravailleurNonSoumis numeric(10,2) not null,
+     IdCompte numeric(10) not null,
+     constraint ID_TypeExamen_ID primary key (IdExamen)
+	 );
+
+create table TypeExamen_TypeRisque 
+(
+     IdLie numeric(10) not null,
+     IdExamen numeric(10) not null,
+     IdRisque numeric(10) not null,
+     constraint SID_TypeExamen_TypeRisque_ID unique (IdExamen, IdRisque),
+     constraint ID_TypeExamen_TypeRisque_ID primary key (IdLie)
+	 );
+
+create table TypeRisque 
+(
+     IdRisque numeric(10) not null,
+     constraint ID_TypeRisque_ID primary key (IdRisque)
+	 );
+
+create table VisiteMedicale
+ (
+     NumeroVisite numeric(10) not null,
+     DateVisite date not null,
+     IdEmploi numeric(10) not null,
+     IdLieu numeric(10) not null,
+     constraint ID_VisiteMedicale_ID primary key (NumeroVisite),
+     constraint SID_VisiteMedicale_ID unique (DateVisite, IdEmploi)
+	 );
+
+
+-- Constraints Section
+-- ___________________ 
+
+alter table Assistante_Equipe add constraint FKcom_Equ
+     foreign key (IdEquipe)
+     references EquipeMedicale;
+
+alter table Assistante_Equipe add constraint FKcom_Ass_FK
+     foreign key (Nom)
+     references Assistante;
+
+alter table Emploi add constraint FKtypeTravail_FK
+     foreign key (CodeAlpha)
+     references Profession;
+
+alter table Emploi add constraint FKoffre_FK
+     foreign key (Numero)
+     references Entreprise;
+
+alter table Emploi add constraint FKexerce_FK
+     foreign key (IdTravailleur)
+     references Travailleur;
+
+alter table Entreprise add constraint FKEnt_Adr_FK
+     foreign key (IdAdresse)
+     references Adresse;
+
+alter table EquipeMedicale add constraint FKresponsable_FK
+     foreign key (NomMedecin)
+     references Medecin;
+
+alter table examen_en_fonction_du_risque add constraint FKexa_Typ
+     foreign key (IdRisque)
+     references TypeRisque;
+
+alter table examen_en_fonction_du_risque add constraint FKexa_Emp_FK
+     foreign key (IdEmploi)
+     references Emploi;
+
+alter table examen_particulier add constraint FKexa_Typ_1_FK
+     foreign key (IdExamen)
+     references TypeExamen;
+
+alter table examen_particulier add constraint FKexa_Emp_1
+     foreign key (IdEmploi)
+     references Emploi;
+
+alter table ExamenRealise add constraint FKse_base_FK
+     foreign key (IdExamen)
+     references TypeExamen;
+
+alter table ExamenRealise add constraint FKprestataire_FK
+     foreign key (NomMedecin)
+     references Medecin;
+
+alter table ExamenRealise add constraint FKpour_FK
+     foreign key (Pou_NumeroVisite)
+     references VisiteMedicale;
+
+alter table Interllocuteur add constraint FKEnt_Int
+     foreign key (Numero)
+     references Entreprise;
+
+alter table Lieu_Equipe add constraint FKger_Lie
+     foreign key (IdLieu)
+     references Lieu;
+
+alter table Lieu_Equipe add constraint FKger_Equ_FK
+     foreign key (IdEquipe)
+     references EquipeMedicale;
+
+alter table MediT add constraint FKMed_Adr_FK
+     foreign key (IdAdresse)
+     references Adresse;
+
+alter table Secteur add constraint FKoccupe_FK
+     foreign key (IdEquipe)
+     references EquipeMedicale;
+
+alter table TraductionExamen add constraint FKtra_TypEx
+     foreign key (IdExamen)
+     references TypeExamen;
+
+alter table TraductionExamen add constraint FKtra_LanEx_FK
+     foreign key (IdLangue)
+     references Langue;
+
+alter table TraductionProfession add constraint FKtra_Pro_FK
+     foreign key (CodeAlpha)
+     references Profession;
+
+alter table TraductionProfession add constraint FKtra_Lan
+     foreign key (IdLangue)
+     references Langue;
+
+alter table TraductionRisque add constraint FKtra_TypRi
+     foreign key (IdRisque)
+     references TypeRisque;
+
+alter table TraductionRisque add constraint FKtra_LanRi_FK
+     foreign key (IdLangue)
+     references Langue;
+
+alter table Travailleur add constraint FKTra_Adr_FK
+     foreign key (IdAdresse)
+     references Adresse;
+
+alter table TypeExamen add constraint FKgeneralite_FK
+     foreign key (IdCompte)
+     references Compte;
+
+alter table TypeExamen_TypeRisque add constraint FKlie_Typ_1
+     foreign key (IdExamen)
+     references TypeExamen;
+
+alter table TypeExamen_TypeRisque add constraint FKlie_Typ_FK
+     foreign key (IdRisque)
+     references TypeRisque;
+
+alter table VisiteMedicale add constraint FKse_deroule_FK
+     foreign key (IdLieu)
+     references Lieu;
+
+alter table VisiteMedicale add constraint FKdevoir_FK
+     foreign key (IdEmploi)
+     references Emploi;
+
+
+-- Index Section
+-- _____________ 
+
+create unique index ID_Adresse_IND
+     on Adresse (IdAdresse);
+
+create unique index ID_Assistante_IND
+     on Assistante (Nom);
+
+create unique index SID_Assistante_Equipe_IND
+     on Assistante_Equipe (IdEquipe, Nom);
+
+create unique index ID_Assistante_Equipe_IND
+     on Assistante_Equipe (IdAssistanteEquipe);
+
+create index FKcom_Ass_IND
+     on Assistante_Equipe (Nom);
+
+create unique index ID_Compte_IND
+     on Compte (IdCompte);
+
+create unique index ID_Emploi_IND
+     on Emploi (IdEmploi);
+
+create unique index SID_Emploi_IND
+     on Emploi (DateEntree, IdTravailleur, Numero);
+
+create index FKtypeTravail_IND
+     on Emploi (CodeAlpha);
+
+create index FKoffre_IND
+     on Emploi (Numero);
+
+create index FKexerce_IND
+     on Emploi (IdTravailleur);
+
+create unique index ID_Entreprise_IND
+     on Entreprise (Numero);
+
+create index FKEnt_Adr_IND
+     on Entreprise (IdAdresse);
+
+create unique index ID_EquipeMedicale_IND
+     on EquipeMedicale (IdEquipe);
+
+create index FKresponsable_IND
+     on EquipeMedicale (NomMedecin);
+
+create unique index ID_examen_en_fonction_du_risque_IND
+     on examen_en_fonction_du_risque (IdExamenFonctionRisque);
+
+create unique index SID_examen_en_fonction_du_risque_IND
+     on examen_en_fonction_du_risque (IdRisque, IdEmploi);
+
+create index FKexa_Emp_IND
+     on examen_en_fonction_du_risque (IdEmploi);
+
+create unique index ID_examen_particulier_IND
+     on examen_particulier (IdExamenParticulier);
+
+create unique index SID_examen_particulier_IND
+     on examen_particulier (IdEmploi, IdExamen);
+
+create index FKexa_Typ_1_IND
+     on examen_particulier (IdExamen);
+
+create unique index ID_ExamenRealise_IND
+     on ExamenRealise (IdExamenRealiser);
+
+create unique index SID_ExamenRealise_IND
+     on ExamenRealise (NumeroVisite, IdExamen);
+
+create index FKse_base_IND
+     on ExamenRealise (IdExamen);
+
+create index FKprestataire_IND
+     on ExamenRealise (NomMedecin);
+
+create index FKpour_IND
+     on ExamenRealise (Pou_NumeroVisite);
+
+create unique index ID_Interllocuteur_IND
+     on Interllocuteur (Numero, Interllocuteur);
+
+create unique index ID_Langue_IND
+     on Langue (IdLangue);
+
+create unique index ID_Lieu_IND
+     on Lieu (IdLieu);
+
+create unique index SID_Lieu_Equipe_IND
+     on Lieu_Equipe (IdLieu, IdEquipe);
+
+create unique index ID_Lieu_Equipe_IND
+     on Lieu_Equipe (IdGere);
+
+create index FKger_Equ_IND
+     on Lieu_Equipe (IdEquipe);
+
+create unique index ID_Medecin_IND
+     on Medecin (NomMedecin);
+
+create unique index ID_MediT_IND
+     on MediT (Nom);
+
+create index FKMed_Adr_IND
+     on MediT (IdAdresse);
+
+create unique index ID_Profession_IND
+     on Profession (CodeAlpha);
+
+create unique index ID_Secteur_IND
+     on Secteur (CodeSecteur);
+
+create index FKoccupe_IND
+     on Secteur (IdEquipe);
+
+create unique index ID_TraductionExamen_IND
+     on TraductionExamen (IdTraductionExemen);
+
+create unique index SID_TraductionExamen_IND
+     on TraductionExamen (IdExamen, IdLangue);
+
+create index FKtra_LanEx_IND
+     on TraductionExamen (IdLangue);
+
+create unique index ID_TraductionProfession_IND
+     on TraductionProfession (IdTraductionProfession);
+
+create unique index SID_TraductionProfession_IND
+     on TraductionProfession (IdLangue, CodeAlpha);
+
+create index FKtra_Pro_IND
+     on TraductionProfession (CodeAlpha);
+
+create unique index ID_TraductionRisque_IND
+     on TraductionRisque (IdTraductionRisque);
+
+create unique index SID_TraductionRisque_IND
+     on TraductionRisque (IdRisque, IdLangue);
+
+create index FKtra_LanRi_IND
+     on TraductionRisque (IdLangue);
+
+create unique index ID_Travailleur_IND
+     on Travailleur (IdTravailleur);
+
+create index FKTra_Adr_IND
+     on Travailleur (IdAdresse);
+
+create unique index ID_TypeExamen_IND
+     on TypeExamen (IdExamen);
+
+create index FKgeneralite_IND
+     on TypeExamen (IdCompte);
+
+create unique index SID_TypeExamen_TypeRisque_IND
+     on TypeExamen_TypeRisque (IdExamen, IdRisque);
+
+create unique index ID_TypeExamen_TypeRisque_IND
+     on TypeExamen_TypeRisque (IdLie);
+
+create index FKlie_Typ_IND
+     on TypeExamen_TypeRisque (IdRisque);
+
+create unique index ID_TypeRisque_IND
+     on TypeRisque (IdRisque);
+
+create unique index ID_VisiteMedicale_IND
+     on VisiteMedicale (NumeroVisite);
+
+create unique index SID_VisiteMedicale_IND
+     on VisiteMedicale (DateVisite, IdEmploi);
+
+create index FKse_deroule_IND
+     on VisiteMedicale (IdLieu);
+
+create index FKdevoir_IND
+     on VisiteMedicale (IdEmploi);
+
+

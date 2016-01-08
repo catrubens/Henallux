@@ -1,0 +1,34 @@
+﻿@model MeditGestionRisqueLesire.Models.examen_particulier
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>examen_particulier</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Emploi.TypeTravail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emploi.TypeTravail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeExaman.IdExamen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeExaman.IdExamen)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdExamenParticulier }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

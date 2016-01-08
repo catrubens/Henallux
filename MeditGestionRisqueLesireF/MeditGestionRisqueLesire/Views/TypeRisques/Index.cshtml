@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MeditGestionRisqueLesire.Models.TypeRisque>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des types de risque</h2>
+
+<table class="table">
+    
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TraductionRisques.First(f => f.IdLangue == (Decimal)Session["selectionLangue"]).Denomination)
+        </td>
+
+        <td>
+            @Html.ActionLink("Détail", "Details", new { id = item.IdRisque })
+        </td>
+    </tr>
+}
+
+</table>

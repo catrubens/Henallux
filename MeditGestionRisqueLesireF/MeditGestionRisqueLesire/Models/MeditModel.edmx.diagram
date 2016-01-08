@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="47180387b76848b591dbc070b9ed3219" Name="Diagram1">
+        <EntityTypeShape EntityType="DBIG3A2Model.Adresse" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Assistante" Width="1.5" PointX="9.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Assistante_Equipe" Width="1.5" PointX="12" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Compte" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Emploi" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Entreprise" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.EquipeMedicale" Width="1.5" PointX="9.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.examen_en_fonction_du_risque" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.examen_particulier" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.ExamenRealise" Width="1.5" PointX="9.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Interllocuteur" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Langue" Width="1.5" PointX="11.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Lieu" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Lieu_Equipe" Width="1.5" PointX="15" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Medecin" Width="1.5" PointX="7.5" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.MediT" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Profession" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Secteur" Width="1.5" PointX="12" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.TraductionExaman" Width="1.5" PointX="14" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.TraductionProfession" Width="1.5" PointX="14" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.TraductionRisque" Width="1.5" PointX="14" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.Travailleur" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.TypeExaman" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.TypeExamen_TypeRisque" Width="1.5" PointX="10.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.TypeRisque" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBIG3A2Model.VisiteMedicale" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
+        <AssociationConnector Association="DBIG3A2Model.FKEnt_Adr_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKMed_Adr_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKTra_Adr_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKcom_Ass_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKcom_Equ" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKgeneralite_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKdevoir_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKexa_Emp_1" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKexa_Emp_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKexerce_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKoffre_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKtypeTravail_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKEnt_Int" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKger_Equ_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKoccupe_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKresponsable_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKexa_Typ" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKexa_Typ_1_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKpour_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKprestataire_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKse_base_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKtra_Lan" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKtra_LanEx_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKtra_LanRi_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKger_Lie" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKse_deroule_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKtra_Pro_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKtra_TypEx" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKtra_TypRi" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKlie_Typ_1" ManuallyRouted="false" />
+        <AssociationConnector Association="DBIG3A2Model.FKlie_Typ_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

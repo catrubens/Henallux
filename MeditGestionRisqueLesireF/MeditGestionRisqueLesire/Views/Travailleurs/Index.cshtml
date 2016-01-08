@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MeditGestionRisqueLesire.Models.Travailleur>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des travailleurs</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Nom
+        </th>
+        <th>
+            Prénom
+        </th>   
+        <th>
+        </th>
+    </tr>
+    
+    @foreach (var item in Model.OrderBy(x => x.Nom))
+    {
+        <tr>           
+            <td>
+                 @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>           
+            <td>
+                @Html.ActionLink("Détail", "Details", new { id = item.IdTravailleur })
+            </td>
+        </tr>                          
+    }
+</table>

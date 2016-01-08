@@ -1,0 +1,228 @@
+﻿
+
+INSERT INTO [dbo].[Adresse]([IdAdresse],[Numero],[Rue],[CP],[Localite]) VALUES
+(1,'13','Rue d''Albert',5170,'Lustin'),
+(2,'68A','Rue de Cheval blanc',3700,'Koninksem'),
+(3,'30','Rue Du Chemin de fer',5020,'Champion'),
+(4,'70','Rue de Robersart',5150,'Floreffe'),
+(5,'13','Rue du Roi',7973,'Stambruges'),
+(6,'100','Rue de Fer',5590,'Ciney'),
+(7,'45B','Rue de souris',5590,'Ciney'),
+(8,'13C','Rue d''Albert',5170,'Lustin'),
+(9,'75B','Rue des fous',5620,'Florennes'),
+(10,'13','Rue des crouses',5600,'Franchimont'),
+(11,'51','Rue d''Ellizabeth',2200,'Herentals'),
+(12,'101A','Rue du Pape Pie',1190,'Forest'),
+(13,'78','Rue de Tintin',7950,'Ladeuze'),
+(14,'20C','Rue de Milou',5170,'Profondeville'),
+(15,'10','Rue Mickey Mouse',6880,'Bertrix'),
+(16,'13','Rue Bob',7130,'Binche'),
+(17,'13','Rue Bobette',6830,'Bouillon'),
+(18,'13','Rue Lambique',7604,'Braffe'),
+(19,'13','Rue Jerome',5555,'Cornimont'),
+(20,'13','Rue Minie Mouse',5030,'Gembloux'),
+(21,'13','Rue Michael Schumacher',4970,'Francorchamps'),
+(22,'13','Rue Vettel',4347,'Freloux'),
+(23,'46','Avenue de la Libération',7900,'Leuze-en-Hainaut'),
+(24,'1B','Avenue G.Thérasse',5530,'Yvoir'), 
+(25,'70','Rue de la Pépinièr',5000,'Namur'),
+(26,'7/9','Avenue Clémenceau',1070,'Bruxelles'),
+(27,'13','Rue Mercelis',1050,'Ixelles'),
+(28,'19','Rue Joseph Calozet',5000,'Namur');
+
+INSERT INTO [dbo].[Langue]([IdLangue],[Nom]) VALUES
+(1,'Français'),
+(2,'Anglais'),
+(3,'Néerlandais'),
+(4,'Allemand');
+
+INSERT INTO [dbo].[Profession]([CodeAlpha]) VALUES
+('A11'),('A21'),('A31'),('A41'),('A51'),
+('A61'),('A71'),('A81'),('A91'),('B11'),
+('B21');
+
+
+INSERT INTO [dbo].[TraductionProfession]([IdTraductionProfession],[CodeAlpha],[IdLangue],[LibelleProfession]) VALUES
+(1,'A11',1,'Electricien'),(2,'A11',2,'Electrician'),(3,'A11',3,'Elektricien'),(4,'A11',4,'Elektriker'),
+(5,'A21',1,'Infirmier'),(6,'A21',2,'Nurses'),(7,'A21',3,'Ziekenverpleger'),(8,'A21',4,'Pfleger'),
+(10,'A31',1,'Ambulancier'),(11,'A31',2,'Ambulance'),(12,'A31',3,'Ambulance'),(13,'A31',4,'Krankenwagen'),
+(14,'A41',1,'Boucher'),(15,'A41',2,'Butcher'),(16,'A41',3,'Slager'),(17,'A41',4,'Butcher'),
+(18,'A51',1,'Chauffagiste'),(19,'A51',2,'Chauffagiste'),(20,'A51',3,'Chauffagiste'),(21,'A51',4,'Chauffagiste'),
+(22,'A61',1,'Glacier'),(23,'A61',2,'Glacier'),(24,'A61',3,'Gletsjer'),(25,'A61',4,'Glacier'),
+(26,'A71',1,'Informaticien'),(27,'A71',2,'Computer scientist'),(28,'A71',3,'Informaticus'),(29,'A71',4,'Informatiker'),
+(30,'A81',1,'Conducteur'),(31,'A81',2,'Driver'),(32,'A81',3,'Conductor'),(33,'A81',4,'Conductor'),
+(34,'A91',1,'Mécanicien'),(35,'A91',2,'Mechanic'),(36,'A91',3,'Mecanicien'),(37,'A91',4,'Mechanic'),
+(38,'B11',1,'Plombier'),(39,'B11',2,'Plumber'),(40,'B11',3,'Moodgieter'),(41,'B11',4,'Plumber'),
+(42,'B21',1,'Pyrotechnicien'),(43,'B21',2,'Pyrotechnist'),(44,'B21',3,'Pyrotechnicus'),(45,'B21',4,'Pyrotechniker');
+
+INSERT INTO [dbo].[Travailleur]([IdTravailleur],[Nom],[Prenom],[NumeroDossier],[IdAdresse])  VALUES
+(1,'Dupond','Jean',null,1),
+(2,'Duchemin','Claude',120508064159,2),
+(3,'Petit','Julie',null,3),
+(4,'Sarton','Simon',null,4),
+(5,'Sauvage','Fabien',149053075638,5),
+(6,'Denis','Max',null,6),
+(7,'Gilles','Julien',null,7),
+(8,'Lambert','Arnaud',null,8),
+(9,'Mercier','Andrés',null,9),
+(10,'Martin','Paul',143058930475,10),
+(11,'Dupont','Bob',null,11),
+(12,'Dubois','Michael',null,12),
+(13,'Beranrd','Jacque',null,13),
+(14,'Henry','Maxime',120860450951,14),
+(15,'Fournier','Jean',null,15),
+(16,'Chevalier','Marc',null,16),
+(17,'Bonnet','Luke',146370005981,17),
+(18,'Skywalker','Anakin',null,18),
+(19,'Skywalker','Luke',null,18),
+(20,'Dufour','Jean-Marc',null,20),
+(21,'Lucas','Luc',null,21),
+(22,'Noel','Alain',146305025079,22),
+(23,'Robin','Bart',null,19);
+
+
+INSERT INTO [dbo].[Entreprise]([Numero],[Denomination],[Telephone],[IdAdresse]) VALUES
+(1,'Wavenet',069670335,23),
+(2,'CHU Dinant Godinne',081422111,24),
+(3,'Le glacier de Namur',081230290,25),
+(4,'Team Construct',025564756,26),
+(5,'Théâtre Mercelis',025156432,27),
+(6,'IESN - Henallux',081468500,28);
+
+
+
+
+INSERT INTO [dbo].[Emploi]([IdEmploi],[TypeTravail],[DateEntree],[Numero],[IdTravailleur],[DateSortie],[CodeAlpha]) VALUES
+(1,'non-soumis','12/12/2012',1,1,null,'A71'),
+(2,'soumis','12/12/2011',2,2,null,'A31'),
+(3,'non-soumis','01/05/2012',3,3,null,'A61'),
+(4,'soumis','10/09/1990',4,4,null,'A11'),
+(5,'non-soumis','10/10/1995',5,5,null,'A91'),
+(6,'soumis','15/06/2000',6,6,null,'A71'),
+(7,'soumis','27/02/1999',1,7,null,'A71'),
+(8,'non-soumis','10/09/2002',2,8,null,'A31'),
+(9,'non-soumis','30/07/2001',3,9,null,'A61'),
+(10,'soumis','01/04/1997',4,10,null,'A51'),
+(11,'non-soumis','05/12/2012',5,11,null,'B21'),
+(12,'non-soumis','01/12/2005',6,12,null,'A91'),
+(13,'soumis','04/09/2010',1,13,null,'A81'),
+(14,'soumis','24/03/1998',2,14,null,'A21'),
+(15,'soumis','17/04/2004',3,15,null,'A81'),
+(16,'non-soumis','26/10/2002',4,16,null,'A51'),
+(17,'soumis','01/04/2003',5,17,null,'B21'),
+(18,'non-soumis','07/01/2000',6,18,null,'A11'),
+(19,'non-soumis','11/04/2001',1,19,null,'A11'),
+(20,'soumis','14/07/1997',2,20,null,'A31'),
+(21,'soumis','01/12/2012',3,21,null,'A81'),
+(22,'non-soumis','12/04/2001',4,21,null,'B11'),
+(23,'non-soumis','07/09/1999',5,22,null,'B21'),
+(24,'non-soumis','10/04/2012',6,23,null,'A91'),
+(25,'soumis','02/08/2010',1,1,null,'A91'),
+(26,'non-soumis','12/10/2013',2,2,null,'A21'),
+(27,'non-soumis','01/09/2014',3,3,null,'A81'),
+(28,'soumis','16/02/2015',4,4,null,'B11'),
+(29,'non-soumis','01/09/2010',4,5,null,'A81'),
+(30,'soumis','17/10/2010',5,6,null,'A11'),
+(31,'soumis','27/05/2010',6,7,null,'A41'),
+(32,'non-soumis','07/01/2015',6,8,null,'A11'),
+(33,'soumis','10/12/2014',1,9,null,'A81'),
+(34,'non-soumis','11/10/2015',2,10,null,'A21'),
+(35,'non-soumis','17/06/2010',5,11,null,'A91'),
+(36,'soumis','12/12/2010',6,12,null,'A11'),
+(37,'non-soumis','28/07/2014',1,13,null,'A71'),
+(38,'soumis','30/08/2015',1,14,null,'A81'),
+(39,'soumis','29/06/2011',2,15,null,'A31'),
+(40,'non-soumis','17/12/2006',1,16,null,'B11'),
+(41,'non-soumis','12/10/2007',3,17,null,'A81'),
+(42,'soumis','07/03/2008',5,18,null,'A91'),
+(43,'non-soumis','10/12/2009',6,19,null,'A71'),
+(44,'soumis','04/05/2011',1,20,null,'A81'),
+(45,'soumis','07/06/2000',4,22,null,'B11'),
+(46,'soumis','08/08/2010',5,23,null,'A91');
+
+INSERT INTO [dbo].[TypeRisque]([IdRisque]) VALUES
+(1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11);
+
+INSERT INTO [dbo].[TraductionRisque]([IdTraductionRisque],[IdRisque],[IdLangue],[Denomination]) VALUES
+(1,1,1,'Electrocution'),(2,1,2,'Electrocution'),(3,1,3,'Elektrocutie'),(4,1,4,'Stromschlag'),
+(5,2,1,'Brûlures'),(6,2,2,'Burns'),(7,2,3,'Brandwonden'),(8,2,4,'Verbrennungen'),
+(9,3,1,'Chute, trébuchements'),(10,3,2,'Fall, trips'),(11,3,3,'Fall, reizen'),(12,3,4,'Herbst, Ausflüge'),
+(13,4,1,'Accidents d’exposition au sang'),(14,4,2,'Blood exposure accidents'),(15,4,3,'Blootstelling bloed ongevallen'),(16,4,4,'Blutexposition Unfällen'),
+(17,5,1,'Contact direct'),(18,5,2,'Direct contact'),(19,5,3,'Direct contact'),(20,5,4,'Direkter Kontakt'),
+(21,6,1,'Insuffisance veineuse'),(22,6,2,'Venous insufficiency'),(23,6,3,'Veneuze insufficiëntie'),(24,6,4,'Venöse Insuffizienz'),
+(25,7,1,'Risque routier'),(26,7,2,'Road risk'),(27,7,3,'Risico weg'),(28,7,4,'Straßenrisiko'),
+(29,8,1,'Coupures'),(30,8,2,'Cuts'),(31,8,3,'Cuts'),(32,8,4,'Cuts'),
+(33,9,1,'Risque cancérogène'),(34,9,2,'Carcinogenic risk'),(35,9,3,'Kankerverwekkend'),(36,9,4,'Kankerverwekkend'),
+(37,10,1,'Risque toxique'),(38,10,2,'Toxic risk'),(39,10,3,'Toxische risico'),(40,10,4,'Giftig Risiko'),
+(41,11,1,'Vue'),(42,11,2,'View'),(43,11,3,'Uitzicht'),(44,11,4,'Anzeigen');
+
+INSERT INTO [dbo].[Compte]([IdCompte],[NumerrCompte]) VALUES
+(1,124803647540365),(2,924803647540365),(3,124841905540365),(4,145368647540365),
+(5,124803605960214),(6,124808560140365),(7,121058997540365),(8,110025947540365),
+(9,129632547025705),(10,124862347540365),(11,124803646301465),(12,125201129540365),
+(13,129610247632065),(14,127423059475403),(15,124853025540365),(16,129602140240365),
+(17,196012470258365),(18,124963201004898);
+
+
+INSERT INTO [dbo].[TypeExamen]([IdExamen],[PrixTravailleurSoumis],[PrixTravailleurNonSoumis],[IdCompte]) VALUES
+(1,10.5,15.6,1),(2,19.5,29.6,2),(3,50.5,59.9,3),(4,45.65,52.64,4),(5,75.2,76.2,5),(6,96.1,105.99,6),
+(7,45.12,45.60,7),(8,75.1,80.4,8),(9,38.5,40.5,9),(10,10.99,19.2,10),(11,19.17,25.1,11),(12,30,35.6,12),
+(13,24.5,30.7,13),(14,74.1,80.9,14),(15,42.3,60.4,15),(16,45.2,50.2,16),(17,63.2,69.9,17),(18,45.2,50.1,18);
+
+
+INSERT INTO [dbo].[TraductionExamen] ([IdTraductionExemen],[IdExamen],[IdLangue],[Denomination]) VALUES
+(1,1,1,'Anesthésiologie'),(2,1,2,'Anesthesiology'),(3,1,3,'Anesthesiologie'),(4,1,4,'Anästhesiologie'),
+(5,2,1,'Cardiologie '),(6,2,2,'Cardiology'),(7,2,3,'Cardiologie'),(8,2,4,'Kardiologie'),
+(9,3,1,'Centre médico-chirurgical ambulatoire'),(10,3,2,'Outpatient Medical and Surgical Center'),(11,3,3,'Ambulante medische en chirurgische Center'),(12,3,4,'Ambulante medizinische und Surgical Center'),
+(13,4,1,'Chirurgie digestive, endocrine et générale'),(14,4,2,'Digestive surgery, endocrine and general'),(15,4,3,'Digestieve chirurgie, endocriene en algemene'),(16,4,4,'Viszeralchirurgie, endokrinen und allgemeine'),
+(17,5,1,'Chirurgie orthopédique'),(18,5,2,'Orthopedic surgery'),(19,5,3,'Orthopedische Chirurgie'),(20,5,4,'Orthopädische Chirurgie'),
+(21,6,1,'Chirurgie plastique, reconstructrice et esthétique'),(22,6,2,'Plastic, Reconstructive and Aesthetic Surgery'),(23,6,3,'Plastische, Reconstructieve en Esthetische Chirurgie'),(24,6,4,'Plastische, Rekonstruktive und Ästhetische Chirurgie'),
+(25,7,1,'Clinique de la mémoire'),(26,7,2,'Memory Clinic'),(27,7,3,'Memory Clinic'),(28,7,4,'Memory Clinic'),
+(29,8,1,'Endoscopie'),(30,8,2,'Endoscopy'),(31,8,3,'Endoscopie'),(32,8,4,'Endoskopie'),
+(33,9,1,'Hématologie'),(34,9,2,'Hematology'),(35,9,3,'Hematologie'),(36,9,4,'Hematology'),
+(37,10,1,'Infectiologie'),(38,10,2,'Infectious'),(39,10,3,'Besmettelijk'),(40,10,4,'Infektions'),
+(41,11,1,'Médecine physique '),(42,11,2,'Physical medicine'),(43,11,3,'Fysische geneeskunde'),(44,11,4,'Physikalische Medizin'),
+(45,12,1,'Néphrologie'),(46,12,2,'Nephrology'),(47,12,3,'Nefrologie'),(48,12,4,'Nephrologie'),
+(49,13,1,'Neurochirurgie'),(50,13,2,'Neurosurgery'),(51,13,3,'Neurochirurgie'),(52,13,4,'Neurochirurgie'),
+(53,14,1,'Neurologie'),(54,14,2,'Neurology'),(55,14,3,'Neurologie'),(56,14,4,'Neurology'),
+(57,15,1,'Oncologie'),(58,15,2,'Oncology'),(59,15,3,'Oncologie'),(60,15,4,'Oncology'),
+(61,16,1,'Pneumologie'),(62,16,2,'Pneumonology'),(63,16,3,'Pneumonology'),(64,16,4,'Pneumologie'),
+(65,17,1,'Rhumatologie'),(66,17,2,'Rheumatology'),(67,17,3,'Reumatologie'),(68,17,4,'Rheumatology'),
+(69,18,1,'Ophtalmologie'),(70,18,2,'Ophthalmology'),(71,18,3,'Oogheelkunde'),(72,18,4,'Augenheilkunde');
+
+INSERT INTO [dbo].[TypeExamen_TypeRisque]([IdLie],[IdExamen],[IdRisque]) VALUES
+(1,1,7),(2,1,2),(3,1,3),(4,1,8),
+(5,2,1),(6,2,6),(7,2,10),
+(8,3,3),(9,3,7),
+(10,4,4),(11,4,5),(12,4,7),(13,4,10),
+(14,5,7),(15,5,3),
+(16,6,2),(17,6,8),
+(18,7,1),
+(19,8,6),
+(20,9,4),(21,9,5),(22,9,10),
+(23,10,2),(24,10,4),(25,10,5),(26,10,8),(27,12,1),
+(28,13,8),
+(29,14,1),(30,14,10),
+(31,15,4),(32,15,9),(33,15,10),
+(34,16,5),(35,16,10),
+(36,17,3),
+(37,18,11);
+
+
+INSERT INTO [dbo].[examen_en_fonction_du_risque]([IdRisque],[IdEmploi]) VALUES
+(2,4),(5,14);
+
+INSERT INTO [dbo].[examen_particulier]([IdExamen],[IdEmploi]) VALUES           
+(10,44);
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MeditGestionRisqueLesire.Models.TypeExaman>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des examens</h2>
+
+<table class="table">
+    <tr>        
+        <th>
+            Libellé
+        </th>
+        <th>
+            Prix pour le travailleur soumis
+        </th>
+        <th>
+            Prix pour le travailleur non soumis
+        </th>
+        <th>
+            Numéro compte
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TraductionExamen.First(f => f.IdLangue == (Decimal)Session["selectionLangue"]).Denomination)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrixTravailleurSoumis) €
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrixTravailleurNonSoumis) €
+        </td>               
+        <td>                
+            @Html.DisplayFor(modelItem => item.Compte.NumerrCompte)
+        </td>
+        <td>
+            @Html.ActionLink("Détail", "Details", new { id = item.IdExamen })
+        </td>
+    </tr>
+}
+</table>

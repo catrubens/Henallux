@@ -1,0 +1,126 @@
+﻿@model MeditGestionRisqueLesire.Models.ChoixAssocier
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="../../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $('#Entreprise').change(function () {
+            $("#Emploi").empty();
+            $("#Travailleur").empty();
+            if ($('#Entreprise').val() != 0) {
+                $.ajax(
+                {
+                    type: "post",
+                    url: "/examen_particulier/GetEmploi",
+                    data: { id: $('#Entreprise').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (emploi) {
+                        $.each(emploi, function (i, emploi) {
+                            $("#Emploi").append('<option>' + emploi.Text + '</option>');
+                        });
+
+                        $.ajax(
+                        {
+                            type: "post",
+                            url: "/examen_en_fonction_du_risque/GetTravailleur",
+                            data: { emploi: $('#Emploi').val(), idEntreprise: $('#Entreprise').val() },
+                            datatype: "json",
+                            traditional: true,
+                            success: function (travailleurs) {
+                                $.each(travailleurs, function (i, travailleur) {
+                                    $("#Travailleur").append('<option >' + travailleur.Text + '</option>');
+                                });
+                            },
+                            error: function (ex) {
+                                alert('Failed to retrieve worker.' + ex);
+                            }
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve emploi.' + ex);
+                    }
+                });
+            }
+        });
+
+        $('#Emploi').change(function () {
+            $("#Travailleur").empty();
+            if ($('#Emploi').val() != 0) {
+                $.ajax(
+                {
+                    type: "post",
+                    url: "/examen_particulier/GetTravailleur",
+                    data: { emploi: $('#Emploi').val()  ,idEntreprise: $('#Entreprise').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (travailleurs)
+                    {
+                        $.each(travailleurs, function (i, travailleur)
+                        {
+                            $("#Travailleur").append('<option >' + travailleur.Text + '</option>');
+                        });
+                    },
+                    error: function (ex)
+                    {
+                        alert('Failed to retrieve emploi.' + ex);
+                    }
+                });
+            }
+        });
+    });
+    
+</script>
+
+
+<h2>Associer un examen au travailleur</h2>
+@using (Html.BeginForm("Create", "examen_particulier"))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr/>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(r => r.IdEntreprise, "Entreprise", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div type="submit" class="col-md-10">
+                @Html.DropDownListFor(model => model.IdEntreprise, (IEnumerable<SelectListItem>)ViewBag.Entreprise, "Sélectionner une entreprise", htmlAttributes: new { id = "Entreprise", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdEntreprise, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(r => r.StringEmploi, "Emploi", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.StringEmploi, new SelectList(string.Empty, "Value", "Text"), "Sélectionner un emploi", htmlAttributes: new { id = "Emploi", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StringEmploi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(r => r.Travailleur, "Travailleur", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Travailleur, new SelectList(string.Empty, "Value", "Text"), "Sélectionner un travailleur", htmlAttributes: new { id = "Travailleur", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Travailleur, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(r => r.Id, "Examen", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Id, (IEnumerable<SelectListItem>)ViewBag.Examen, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default">Créer</button>
+            </div>
+        </div>
+
+    </div>
+}
