@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bibliothequeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="author">
+          <Key>
+            <PropertyRef Name="NumAuthor" />
+          </Key>
+          <Property Name="NumAuthor" Type="int" Nullable="false" />
+          <Property Name="NameAuthor" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="belongs">
+          <Key>
+            <PropertyRef Name="NumReservation" />
+            <PropertyRef Name="NumBook" />
+          </Key>
+          <Property Name="NumReservation" Type="int" Nullable="false" />
+          <Property Name="NumBook" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="book">
+          <Key>
+            <PropertyRef Name="NumBook" />
+          </Key>
+          <Property Name="NumBook" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="150" />
+          <Property Name="YearPublication" Type="int" />
+          <Property Name="DateEntry" Type="date" />
+          <Property Name="Editor" Type="varchar" MaxLength="150" />
+          <Property Name="Rangement" Type="varchar" MaxLength="30" />
+          <Property Name="Statut" Type="varchar" MaxLength="30" />
+          <Property Name="CodeCategorie" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="borrower">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="NameBorrower" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="FirstNameBorrower" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Adresse" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="NumTelephone" Type="int" Nullable="false" />
+          <Property Name="GSM" Type="int" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="CodeCategorie" />
+          </Key>
+          <Property Name="CodeCategorie" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LibelleCategorie" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reservation">
+          <Key>
+            <PropertyRef Name="NumReservation" />
+          </Key>
+          <Property Name="NumReservation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateReservation" Type="date" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="written">
+          <Key>
+            <PropertyRef Name="NumBook" />
+            <PropertyRef Name="NumAuthor" />
+          </Key>
+          <Property Name="NumBook" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="NumAuthor" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FKcommande">
+          <End Role="borrower" Type="Self.borrower" Multiplicity="1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="borrower">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKecr_Aut_FK">
+          <End Role="author" Type="Self.author" Multiplicity="1" />
+          <End Role="written" Type="Self.written" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="author">
+              <PropertyRef Name="NumAuthor" />
+            </Principal>
+            <Dependent Role="written">
+              <PropertyRef Name="NumAuthor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKecr_Liv_FK">
+          <End Role="book" Type="Self.book" Multiplicity="1" />
+          <End Role="written" Type="Self.written" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book">
+              <PropertyRef Name="NumBook" />
+            </Principal>
+            <Dependent Role="written">
+              <PropertyRef Name="NumBook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKfai_Liv">
+          <End Role="book" Type="Self.book" Multiplicity="1" />
+          <End Role="belongs" Type="Self.belongs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book">
+              <PropertyRef Name="NumBook" />
+            </Principal>
+            <Dependent Role="belongs">
+              <PropertyRef Name="NumBook" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKfai_Res_FK">
+          <End Role="reservation" Type="Self.reservation" Multiplicity="1" />
+          <End Role="belongs" Type="Self.belongs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reservation">
+              <PropertyRef Name="NumReservation" />
+            </Principal>
+            <Dependent Role="belongs">
+              <PropertyRef Name="NumReservation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKtrier_FK">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="0..1" />
+          <End Role="book" Type="Self.book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="CodeCategorie" />
+            </Principal>
+            <Dependent Role="book">
+              <PropertyRef Name="CodeCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bibliothequeModelStoreContainer">
+          <EntitySet Name="author" EntityType="Self.author" Schema="bibliotheque" store:Type="Tables" />
+          <EntitySet Name="belongs" EntityType="Self.belongs" Schema="bibliotheque" store:Type="Tables" />
+          <EntitySet Name="book" EntityType="Self.book" Schema="bibliotheque" store:Type="Tables" />
+          <EntitySet Name="borrower" EntityType="Self.borrower" Schema="bibliotheque" store:Type="Tables" />
+          <EntitySet Name="categorie" EntityType="Self.categorie" Schema="bibliotheque" store:Type="Tables" />
+          <EntitySet Name="reservation" EntityType="Self.reservation" Schema="bibliotheque" store:Type="Tables" />
+          <EntitySet Name="written" EntityType="Self.written" Schema="bibliotheque" store:Type="Tables" />
+          <AssociationSet Name="FKcommande" Association="Self.FKcommande">
+            <End Role="borrower" EntitySet="borrower" />
+            <End Role="reservation" EntitySet="reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FKecr_Aut_FK" Association="Self.FKecr_Aut_FK">
+            <End Role="author" EntitySet="author" />
+            <End Role="written" EntitySet="written" />
+          </AssociationSet>
+          <AssociationSet Name="FKecr_Liv_FK" Association="Self.FKecr_Liv_FK">
+            <End Role="book" EntitySet="book" />
+            <End Role="written" EntitySet="written" />
+          </AssociationSet>
+          <AssociationSet Name="FKfai_Liv" Association="Self.FKfai_Liv">
+            <End Role="book" EntitySet="book" />
+            <End Role="belongs" EntitySet="belongs" />
+          </AssociationSet>
+          <AssociationSet Name="FKfai_Res_FK" Association="Self.FKfai_Res_FK">
+            <End Role="reservation" EntitySet="reservation" />
+            <End Role="belongs" EntitySet="belongs" />
+          </AssociationSet>
+          <AssociationSet Name="FKtrier_FK" Association="Self.FKtrier_FK">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="book" EntitySet="book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bibliothequeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="author">
+          <Key>
+            <PropertyRef Name="NumAuthor" />
+          </Key>
+          <Property Name="NumAuthor" Type="Int32" Nullable="false" />
+          <Property Name="NameAuthor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="books" Relationship="Self.written" FromRole="author" ToRole="book" />
+        </EntityType>
+        <EntityType Name="book">
+          <Key>
+            <PropertyRef Name="NumBook" />
+          </Key>
+          <Property Name="NumBook" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="YearPublication" Type="Int32" />
+          <Property Name="DateEntry" Type="DateTime" />
+          <Property Name="Editor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Rangement" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Statut" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CodeCategorie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="categorie" Relationship="Self.FKtrier_FK" FromRole="book" ToRole="categorie" />
+          <NavigationProperty Name="reservations" Relationship="Self.belongs" FromRole="book" ToRole="reservation" />
+          <NavigationProperty Name="authors" Relationship="Self.written" FromRole="book" ToRole="author" />
+        </EntityType>
+        <EntityType Name="borrower">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="NameBorrower" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstNameBorrower" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumTelephone" Type="Int32" Nullable="false" />
+          <Property Name="GSM" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="reservations" Relationship="Self.FKcommande" FromRole="borrower" ToRole="reservation" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="CodeCategorie" />
+          </Key>
+          <Property Name="CodeCategorie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LibelleCategorie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="books" Relationship="Self.FKtrier_FK" FromRole="categorie" ToRole="book" />
+        </EntityType>
+        <EntityType Name="reservation">
+          <Key>
+            <PropertyRef Name="NumReservation" />
+          </Key>
+          <Property Name="NumReservation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateReservation" Type="DateTime" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="borrower" Relationship="Self.FKcommande" FromRole="reservation" ToRole="borrower" />
+          <NavigationProperty Name="books" Relationship="Self.belongs" FromRole="reservation" ToRole="book" />
+        </EntityType>
+        <Association Name="FKtrier_FK">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="0..1" />
+          <End Role="book" Type="Self.book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="CodeCategorie" />
+            </Principal>
+            <Dependent Role="book">
+              <PropertyRef Name="CodeCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKcommande">
+          <End Role="borrower" Type="Self.borrower" Multiplicity="1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="borrower">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="belongs">
+          <End Role="book" Type="Self.book" Multiplicity="*" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+        </Association>
+        <Association Name="written">
+          <End Role="author" Type="Self.author" Multiplicity="*" />
+          <End Role="book" Type="Self.book" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="bibliothequeEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="authors" EntityType="Self.author" />
+          <EntitySet Name="books" EntityType="Self.book" />
+          <EntitySet Name="borrowers" EntityType="Self.borrower" />
+          <EntitySet Name="categories" EntityType="Self.categorie" />
+          <EntitySet Name="reservations" EntityType="Self.reservation" />
+          <AssociationSet Name="FKtrier_FK" Association="Self.FKtrier_FK">
+            <End Role="categorie" EntitySet="categories" />
+            <End Role="book" EntitySet="books" />
+          </AssociationSet>
+          <AssociationSet Name="FKcommande" Association="Self.FKcommande">
+            <End Role="borrower" EntitySet="borrowers" />
+            <End Role="reservation" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="belongs" Association="Self.belongs">
+            <End Role="book" EntitySet="books" />
+            <End Role="reservation" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="written" Association="Self.written">
+            <End Role="author" EntitySet="authors" />
+            <End Role="book" EntitySet="books" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bibliothequeModelStoreContainer" CdmEntityContainer="bibliothequeEntities1">
+          <EntitySetMapping Name="authors">
+            <EntityTypeMapping TypeName="bibliothequeModel.author">
+              <MappingFragment StoreEntitySet="author">
+                <ScalarProperty Name="NumAuthor" ColumnName="NumAuthor" />
+                <ScalarProperty Name="NameAuthor" ColumnName="NameAuthor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="books">
+            <EntityTypeMapping TypeName="bibliothequeModel.book">
+              <MappingFragment StoreEntitySet="book">
+                <ScalarProperty Name="NumBook" ColumnName="NumBook" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="YearPublication" ColumnName="YearPublication" />
+                <ScalarProperty Name="DateEntry" ColumnName="DateEntry" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="Rangement" ColumnName="Rangement" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+                <ScalarProperty Name="CodeCategorie" ColumnName="CodeCategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="borrowers">
+            <EntityTypeMapping TypeName="bibliothequeModel.borrower">
+              <MappingFragment StoreEntitySet="borrower">
+                <ScalarProperty Name="NameBorrower" ColumnName="NameBorrower" />
+                <ScalarProperty Name="FirstNameBorrower" ColumnName="FirstNameBorrower" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="NumTelephone" ColumnName="NumTelephone" />
+                <ScalarProperty Name="GSM" ColumnName="GSM" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="bibliothequeModel.categorie">
+              <MappingFragment StoreEntitySet="categorie">
+                <ScalarProperty Name="CodeCategorie" ColumnName="CodeCategorie" />
+                <ScalarProperty Name="LibelleCategorie" ColumnName="LibelleCategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reservations">
+            <EntityTypeMapping TypeName="bibliothequeModel.reservation">
+              <MappingFragment StoreEntitySet="reservation">
+                <ScalarProperty Name="NumReservation" ColumnName="NumReservation" />
+                <ScalarProperty Name="DateReservation" ColumnName="DateReservation" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="belongs" TypeName="bibliothequeModel.belongs" StoreEntitySet="belongs">
+            <EndProperty Name="book">
+              <ScalarProperty Name="NumBook" ColumnName="NumBook" />
+            </EndProperty>
+            <EndProperty Name="reservation">
+              <ScalarProperty Name="NumReservation" ColumnName="NumReservation" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="written" TypeName="bibliothequeModel.written" StoreEntitySet="written">
+            <EndProperty Name="author">
+              <ScalarProperty Name="NumAuthor" ColumnName="NumAuthor" />
+            </EndProperty>
+            <EndProperty Name="book">
+              <ScalarProperty Name="NumBook" ColumnName="NumBook" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
