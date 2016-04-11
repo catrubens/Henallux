@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="Bibliotheque.View.Reservation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bibliotheque.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Source={StaticResource Locator},Path=Reservation}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Uid="TitleReservation" Text="" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="23" Margin="10,5,10,5" Grid.Row="0"/>
+        <Button x:Uid="ButtonValide" Content="" Command="{Binding GoValide}" HorizontalAlignment="center"  VerticalAlignment="Center" Background="#330E0E0E" Height="30" Width="300" Margin="50,0,50,0" Grid.Row="1"/>
+        <ListView x:Name="ListBook" ItemsSource="{Binding BooksReservation , Mode=TwoWay}" SelectedItem="{Binding SelectedBook , Mode=TwoWay}" Margin="5" Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Grid Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding Title}" Grid.Row="0" Grid.Column="1"/>
+                            <TextBlock Text="{Binding ListAuthor}" Grid.Row="1" Grid.Column="1"/>
+                            <Button Command="{Binding ElementName=ListBook,Path=DataContext.BookDelete}" CommandParameter="{Binding}"                                    
+                                    Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2" Background="Transparent">
+                                <SymbolIcon Symbol="Delete"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Home" Name="MainPage" Command="{Binding CommandMainPage, Mode=TwoWay}"/>
+            <AppBarButton Icon="Find" Name="Search" Command="{Binding CommandSearch, Mode=TwoWay}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

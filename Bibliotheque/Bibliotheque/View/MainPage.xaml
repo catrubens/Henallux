@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="Bibliotheque.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bibliotheque"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Source={StaticResource Locator},Path=Main}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Uid="Title" Text="" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="23" Margin="10,5,10,5" Grid.Row="0"/>
+        <Button x:Uid="Search" Content="" Command="{Binding GoSearch}" HorizontalAlignment="Left"  VerticalAlignment="Center" Background="#330E0E0E" Height="40" Width="100" Margin="50,0,50,0" Grid.Row="1"/>
+        <Button x:Uid="LogIn" Content="" Command="{Binding GoLogin}" HorizontalAlignment="Right" VerticalAlignment="Center" Background="#330E0E0E" Height="40" Width="100" Margin="50,0,50,0" Grid.Row="1"/>
+        <TextBlock x:Uid="Niew" Text="" HorizontalAlignment="Left"  VerticalAlignment="Center"  FontSize="16" Margin="15,5,15,5" Grid.Row="2"/>
+        <ListView ItemsSource="{Binding Books30DaysLast , Mode=TwoWay}" SelectedItem="{Binding SelectedBook , Mode=TwoWay}"  Margin="5" Grid.Row="4">
+            <ListView.ItemTemplate>
+                <DataTemplate>                                   
+                    <StackPanel>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="150"/>                                   
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding Title}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <TextBlock Text="{Binding ListAuthor}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <TextBlock Text="{Binding YearPublication}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1"/>
+                            <TextBlock Text="{Binding Editor}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                            <TextBlock x:Uid="Statut" Text="" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="1"/>
+                            <TextBlock Text="{Binding Statut}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1"/>
+                            <TextBlock x:Uid="NumberReservation" Text="" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+                            <TextBlock Text="{Binding NumberReservation}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="1"/>
+
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Shop" Name="ReservationBar" Command="{Binding CommandReservation, Mode=TwoWay}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
